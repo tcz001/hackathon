@@ -51,6 +51,12 @@ class Crypedit {
     const address = await exist.AddressOf(name);
     return this.endorsementsForAddress(address);
   };
+
+  endorse = async (address, comment) => {
+    const exist = await this.crypeditContract();
+    const owner = await this.myAddress();
+    return await exist.Endorse(address, comment, { from: owner });
+  };
 }
 
 export default Crypedit;
