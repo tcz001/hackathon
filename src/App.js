@@ -105,8 +105,75 @@ class App extends Component {
                 } catch (err) {
                   alert(err);
                 }
-            }}>find</Button>
-        </Card>
+              }}
+            >
+              find
+            </Button>
+          </Card>
+          <Card className="endorsements">
+            <CardHeader title="Find Endorsements for Name" />
+            <TextField
+              className="input"
+              placeholder="君の名は"
+              fullWidth
+              onChange={e =>
+                this.setState({ endorsementsByNameValue: e.target.value })
+              }
+              value={this.state.endorsementsByNameValue}
+            />
+            <Button
+              onClick={async () => {
+                try {
+                  let { endorsementsByNameValue } = this.state;
+                  let endorsements = await this.crypedit.endorsementsForName(
+                    endorsementsByNameValue
+                  );
+                  alert(
+                    "Endorsements of " +
+                      endorsementsByNameValue +
+                      " is " +
+                      JSON.stringify(endorsements)
+                  );
+                } catch (err) {
+                  alert(err);
+                }
+              }}
+            >
+              find
+            </Button>
+          </Card>
+          <Card className="endorsements">
+            <CardHeader title="Find Endorsements for Address" />
+            <TextField
+              className="input"
+              placeholder="您的地址"
+              fullWidth
+              onChange={e =>
+                this.setState({ endorsementsByAddressValue: e.target.value })
+              }
+              value={this.state.endorsementsByAddressValue}
+            />
+            <Button
+              onClick={async () => {
+                try {
+                  let { endorsementsByAddressValue } = this.state;
+                  let endorsements = await this.crypedit.endorsementsForAddress(
+                    endorsementsByAddressValue
+                  );
+                  alert(
+                    "Endorsements of " +
+                      endorsementsByAddressValue +
+                      " is " +
+                      JSON.stringify(endorsements)
+                  );
+                } catch (err) {
+                  alert(err);
+                }
+              }}
+            >
+              find
+            </Button>
+          </Card>
         </div>
       </div>
     );
