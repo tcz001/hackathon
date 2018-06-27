@@ -198,7 +198,7 @@ class App extends Component {
                     </p>
                     <ul>
                       {this.state.endorsementsForNameResult.endorsements.map(
-                        (e, idx) => <li key={idx}>{e}</li>
+                        (e, idx) => <li key={idx}>{e.endorser + ":" + e.comment}</li>
                       )}
                     </ul>
                   </div>
@@ -254,7 +254,7 @@ class App extends Component {
                     </p>
                     <ul>
                       {this.state.endorsementsForAddressResult.endorsements.map(
-                        (e, idx) => <li key={idx}>{e}</li>
+                        (e, idx) => <li key={idx}>{e.endorser + ":" + e.comment}</li>
                       )}
                     </ul>
                   </div>
@@ -281,7 +281,6 @@ class App extends Component {
                       comment: endorseCommentValue
                     }
                   });
-                  alert();
                 } catch (err) {
                   alert(err);
                 }

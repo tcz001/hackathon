@@ -19,11 +19,16 @@ h3 {
   justify-content: center;
   min-width: 250px;
   flex-basis: 420px;
+  flex-grow: 1;
 }
 
 .Result {
   padding: 10px 20px;
   background-color: palegreen;
+}
+
+.Result ul {
+  display: inline-block;
 }
 
 .container {
