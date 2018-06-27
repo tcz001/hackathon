@@ -16,7 +16,9 @@ class App extends Component {
       nameByAddressValue: "",
       addressByNameValue: "",
       endorsementsByNameValue: "",
-      endorsementsByAddressValue: ""
+      endorsementsByAddressValue: "",
+      endorseCommentValue: "",
+      endorseAddressValue: ""
     };
   }
 
@@ -174,6 +176,48 @@ class App extends Component {
               }}
             >
               find
+            </Button>
+          </Card>
+          <Card className="endorse">
+            <CardHeader title="Endorse" />
+            <TextField
+              className="input"
+              placeholder="您的地址"
+              fullWidth
+              onChange={e =>
+                this.setState({ endorseAddressValue: e.target.value })
+              }
+              value={this.state.endorseAddressValue}
+            />
+            <TextField
+              className="input"
+              placeholder="Comment"
+              fullWidth
+              onChange={e =>
+                this.setState({ endorseCommentValue: e.target.value })
+              }
+              value={this.state.endorseCommentValue}
+            />
+            <Button
+              onClick={async () => {
+                try {
+                  const {
+                    endorseAddressValue,
+                    endorseCommentValue
+                  } = this.state;
+                  await this.crypedit.endorse(
+                    endorseAddressValue,
+                    endorseCommentValue
+                  );
+                  alert(
+                    `Successfully endorsed address "${endorseAddressValue}" with comment "${endorseCommentValue}"`
+                  );
+                } catch (err) {
+                  alert(err);
+                }
+              }}
+            >
+              endorse
             </Button>
           </Card>
         </div>
