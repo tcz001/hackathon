@@ -9,8 +9,8 @@ contract Crypedit {
 
     mapping (address => string) names;
     mapping (string => address) addresses;
-    mapping (address => mapping (address => string)) endorserComments;
     mapping (address => address[]) endorserAddresses;
+    mapping (address => string[]) endorserComments;
 
     event Registeration(address indexed _sender, string _name);
     event Endorsement(address indexed _target, address indexed _endorser, string _comment);
@@ -33,8 +33,8 @@ contract Crypedit {
     }
 
     function Endorse(address _target, string _comment) public {
-        endorserComments[_target][msg.sender] = _comment;
-        endorserAddresses[_target][endorserAddresses[_target].length] = msg.sender;
+        endorserAddresses[_target].push(msg.sender);
+        endorserComments[_target].push(_comment);
         emit Endorsement(_target, msg.sender, _comment);
     }
 
@@ -50,7 +50,7 @@ contract Crypedit {
         return endorserAddresses[_addr];
     }
 
-    function EndorserCommentsOf(address _addr, address _endorser) public view returns (string comment) {
-        return endorserComments[_addr][_endorser];
+    function EndorserCommentOf(address _addr, uint _index) public view returns (string comment) {
+        return endorserComments[_addr][_index];
     }
 }

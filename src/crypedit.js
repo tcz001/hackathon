@@ -39,8 +39,8 @@ class Crypedit {
     const exist = await this.crypeditContract();
     const endorsers = await exist.EndorsersOf(address);
     return await Promise.all(
-      endorsers.map(async endorser => {
-        const comment = await exist.EndorserCommentsOf(address, endorser);
+      endorsers.map(async (endorser,i) => {
+        const comment = await exist.EndorserCommentOf(address, i);
         return { endorser, comment };
       })
     );
