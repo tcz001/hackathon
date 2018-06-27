@@ -72,7 +72,7 @@ class App extends Component {
               <CardHeader title="Put Name:" />
               <TextField
                 className="input"
-                placeholder="宮水三葉 or 立花瀧"
+                placeholder="君の名は"
                 fullWidth
                 onChange={e => this.setState({ putNameValue: e.target.value })}
                 value={this.putNameValue}
@@ -80,6 +80,60 @@ class App extends Component {
               <Button type="submit">put</Button>
               {this.state.putNameResult && (
                 <p className="Result">{this.state.putNameResult}</p>
+              )}
+            </form>
+          </Card>
+
+          <Card className="Card">
+            <form
+              onSubmit={async e => {
+                e.preventDefault();
+                try {
+                  const {
+                    endorseAddressValue,
+                    endorseCommentValue
+                  } = this.state;
+                  await this.crypedit.endorse(
+                    endorseAddressValue,
+                    endorseCommentValue
+                  );
+                  this.setState({
+                    endorseResult: {
+                      address: endorseAddressValue,
+                      comment: endorseCommentValue
+                    }
+                  });
+                } catch (err) {
+                  alert(err);
+                }
+              }}
+            >
+              <CardHeader title="Endorse" />
+              <TextField
+                className="input"
+                placeholder="0x5c47e30dc7F82167De8865aac3914Ce927C15918"
+                fullWidth
+                onChange={e =>
+                  this.setState({ endorseAddressValue: e.target.value })
+                }
+                value={this.state.endorseAddressValue}
+              />
+              <TextField
+                className="input"
+                placeholder="Comment"
+                fullWidth
+                onChange={e =>
+                  this.setState({ endorseCommentValue: e.target.value })
+                }
+                value={this.state.endorseCommentValue}
+              />
+              <Button type="submit">endorse</Button>
+              {this.state.endorseResult && (
+                <p className="Result">
+                  Successfully endorsed address "{
+                    this.state.endorseResult.address
+                  }" with comment "{this.state.endorseResult.comment}"
+                </p>
               )}
             </form>
           </Card>
@@ -104,7 +158,7 @@ class App extends Component {
               <CardHeader title="Find Address by Name" />
               <TextField
                 className="input"
-                placeholder="宮水三葉 or 立花瀧"
+                placeholder="君の名は"
                 fullWidth
                 onChange={e =>
                   this.setState({ addressByNameValue: e.target.value })
@@ -229,7 +283,7 @@ class App extends Component {
               <CardHeader title="Find Endorsements for Address" />
               <TextField
                 className="input"
-                placeholder="您的地址"
+                placeholder="0x5c47e30dc7F82167De8865aac3914Ce927C15918"
                 fullWidth
                 onChange={e =>
                   this.setState({ endorsementsByAddressValue: e.target.value })
@@ -262,59 +316,6 @@ class App extends Component {
             </form>
           </Card>
 
-          <Card className="Card">
-            <form
-              onSubmit={async e => {
-                e.preventDefault();
-                try {
-                  const {
-                    endorseAddressValue,
-                    endorseCommentValue
-                  } = this.state;
-                  await this.crypedit.endorse(
-                    endorseAddressValue,
-                    endorseCommentValue
-                  );
-                  this.setState({
-                    endorseResult: {
-                      address: endorseAddressValue,
-                      comment: endorseCommentValue
-                    }
-                  });
-                } catch (err) {
-                  alert(err);
-                }
-              }}
-            >
-              <CardHeader title="Endorse" />
-              <TextField
-                className="input"
-                placeholder="您的地址"
-                fullWidth
-                onChange={e =>
-                  this.setState({ endorseAddressValue: e.target.value })
-                }
-                value={this.state.endorseAddressValue}
-              />
-              <TextField
-                className="input"
-                placeholder="Comment"
-                fullWidth
-                onChange={e =>
-                  this.setState({ endorseCommentValue: e.target.value })
-                }
-                value={this.state.endorseCommentValue}
-              />
-              <Button type="submit">endorse</Button>
-              {this.state.endorseResult && (
-                <p className="Result">
-                  Successfully endorsed address "{
-                    this.state.endorseResult.address
-                  }" with comment "{this.state.endorseResult.comment}"
-                </p>
-              )}
-            </form>
-          </Card>
         </div>
       </main>
     );
