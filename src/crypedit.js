@@ -13,7 +13,22 @@ class Crypedit {
   }
 
   async crypeditContract() {
-    return await this.contract.deployed();
+    let exist
+    try {
+      let currentNetwork = this.web3.currentProvider.publicConfigStore._state.networkVersion
+      if(currentNetwork === "1") { // mainnet
+        exist = await this.contract.at('0x0')
+      } else if (currentNetwork === "3") {  // ropsten
+        exist = await this.contract.at('0xb70a0e914635873ac5e9ee5bf12bf95afb56d92c')
+      // } else if (currentNetwork === "4") { // rinkeby
+      //   exist = await this.contract.at('0x0')
+      } else {
+        exist = await this.contract.deployed()
+      }
+    } catch(e) { // ropsten by default
+        exist = await this.contract.at('0xb70a0e914635873ac5e9ee5bf12bf95afb56d92c')
+    }
+    return exist
   }
 
   putName = async value => {
