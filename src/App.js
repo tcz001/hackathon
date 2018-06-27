@@ -43,7 +43,7 @@ class App extends Component {
             <Button
               onClick={async () => {
                 try {
-                  let { putNameValue } = this.state;
+                  const { putNameValue } = this.state;
                   await this.crypedit.putName(putNameValue);
                   alert(
                     "You have successfully register your name " + putNameValue
@@ -72,8 +72,10 @@ class App extends Component {
             <Button
               onClick={async () => {
                 try {
-                  let { addressByNameValue } = this.state;
-                  let addr = await this.crypedit.addressOf(addressByNameValue);
+                  const { addressByNameValue } = this.state;
+                  const addr = await this.crypedit.addressOf(
+                    addressByNameValue
+                  );
                   alert("Address of " + addressByNameValue + " is " + addr);
                 } catch (err) {
                   alert(err);
@@ -99,8 +101,8 @@ class App extends Component {
             <Button
               onClick={async () => {
                 try {
-                  let { nameByAddressValue } = this.state;
-                  let name = await this.crypedit.nameOf(nameByAddressValue);
+                  const { nameByAddressValue } = this.state;
+                  const name = await this.crypedit.nameOf(nameByAddressValue);
                   alert("Name of " + nameByAddressValue + " is " + name);
                 } catch (err) {
                   alert(err);
@@ -124,8 +126,8 @@ class App extends Component {
             <Button
               onClick={async () => {
                 try {
-                  let { endorsementsByNameValue } = this.state;
-                  let endorsements = await this.crypedit.endorsementsForName(
+                  const { endorsementsByNameValue } = this.state;
+                  const endorsements = await this.crypedit.endorsementsForName(
                     endorsementsByNameValue
                   );
                   alert(
@@ -156,8 +158,8 @@ class App extends Component {
             <Button
               onClick={async () => {
                 try {
-                  let { endorsementsByAddressValue } = this.state;
-                  let endorsements = await this.crypedit.endorsementsForAddress(
+                  const { endorsementsByAddressValue } = this.state;
+                  const endorsements = await this.crypedit.endorsementsForAddress(
                     endorsementsByAddressValue
                   );
                   alert(
